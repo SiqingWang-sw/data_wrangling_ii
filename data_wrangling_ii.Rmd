@@ -1,0 +1,89 @@
+---
+title: "data_wrangling_ii"
+author: "Siqing Wang"
+date: "2023-10-12"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(httr)
+library(p8105.datasets)
+```
+
+## Strings and Manipulations
+```{r}
+string_vec = c("my", "name", "is", "jeff")
+
+str_detect(string_vec, "jeff")
+str_detect(string_vec, "e")
+str_detect(string_vec, "Jeff")
+
+str_replace(string_vec, "jeff", "Jeff Goldsmith")
+```
+
+```{r}
+string_vec = c(
+  "i think we all rule for participating",
+  "i think i have been caught",
+  "i think this will be quite fun actually",
+  "it will be fun, i think"
+  )
+
+str_detect(string_vec, "i think")
+str_detect(string_vec, "^i think") #only search for lines start with i think
+str_detect(string_vec, "i think$") #only search for lines end with i think
+```
+
+```{r}
+string_vec = c(
+  "Time for a Pumpkin Spice Latte!",
+  "went to the #pumpkinpatch last weekend",
+  "Pumpkin Pie is obviously the best pie",
+  "SMASHING PUMPKINS -- LIVE IN CONCERT!!"
+  )
+
+str_detect(string_vec, "Pumpkin")
+str_detect(string_vec, "[Pp]umpkin") #search for both P and p in pumpkin
+
+```
+
+```{r}
+string_vec = c(
+  '7th inning stretch',
+  '1st half soon to begin. Texas won the toss.',
+  'she is 5 feet 4 inches tall',
+  '3AM - cant sleep :('
+  )
+
+str_detect(string_vec, "[0-9]") #any instance that's a number 
+str_detect(string_vec, "^[0-9]") #starts with a number 
+str_detect(string_vec, "^[0-9][a-z]") #starts with a number and followed by an lowercase character
+```
+
+```{r}
+string_vec = c(
+  'Its 7:11 in the evening',
+  'want to go to 7-11?',
+  'my flight is AA711',
+  'NetBios: scanning ip 203.167.114.66'
+  )
+
+str_detect(string_vec, "7.11") #match anything between 7 and 11
+```
+
+```{r}
+string_vec = c(
+  'The CI is [2, 5]',
+  ':-]',
+  ':-[',
+  'I found the answer on pages [6-7]'
+  )
+
+str_detect(string_vec, "\\[") #detect the open square bracket [, \ is a special character and another \ lets R ignore this 
+str_detect(string_vec, "\\[[0-9]") #find [ followed by a number 
+```
+
+
+
